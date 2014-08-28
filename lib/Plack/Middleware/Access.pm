@@ -62,7 +62,7 @@ sub prepare_app {
             my $netip = Net::IP->new($rule) or
                 die "not supported type of rule argument [$rule] or bad ip: " . Net::IP::Error();
             $check = sub {
-                my $addr = $_[0]->{REMOTE_ADDR};
+                my $addr = $_[0]->{HTTP_X_FORWARDED_FOR};
                 my $ip;
                 if (defined($addr) && ($ip = Net::IP->new($addr))) {
                     my $overlaps = $netip->overlaps($ip);
